@@ -1,0 +1,12 @@
+1) Create POC  - Create ROS Packge make it work - Done
+2) Make code modular Push to github -Done
+
+3) Add support for all commands - taking live feed of ROS Topic list - Inprogress
+
+4) Make it more efficient
+5) Make it indepndent of RObot platform
+6) Start looking into publishing
+
+
+7) Create custom GPT or more optimized version
+
