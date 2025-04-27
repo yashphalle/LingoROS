@@ -1,9 +1,12 @@
 <launch>
-
-    <node pkg="lingoros" type="nlu_node.py" name="lingoros_nlu_node" output="screen">
-        </node>
-
-    <node pkg="lingoros" type="action_mapping_node.py" name="lingoros_action_mapping_node" output="screen">
-         </node>
-
+  <!-- Set the API key as a private parameter -->
+  <param name="/lingoros_language_understanding_node/openai_api_key" value="your_api_key_here" />
+  
+  <!-- Start LingoROS nodes -->
+  <node name="lingoros_language_understanding_node" pkg="lingoros" type="language_understanding_node.py" output="screen">
+    <param name="model_name" value="gpt-3.5-turbo" />
+    <param name="temperature" value="0.1" />
+  </node>
+  
+  <node name="lingoros_action_mapping_node" pkg="lingoros" type="action_mapping_node.py" output="screen" />
 </launch>
