@@ -23,7 +23,7 @@ topics:
   subscribers:
   - /twist_mux
 - name: /tf
-  type: tf/tfMessage
+  type: tf2_msgs/TFMessage
   fields:
   - name: transforms
     data_type: geometry_msgs/TransformStamped[]
@@ -61,6 +61,45 @@ topics:
   - /ekf_localization
   - /robot_state_publisher
   - /gazebo
+  subscribers:
+  - /ekf_localization
+- name: /tf_static
+  type: tf2_msgs/TFMessage
+  fields:
+  - name: transforms
+    data_type: geometry_msgs/TransformStamped[]
+  - name: transforms.header
+    data_type: std_msgs/Header
+  - name: transforms.header.seq
+    data_type: uint32
+  - name: transforms.header.stamp
+    data_type: time
+  - name: transforms.header.frame_id
+    data_type: string
+  - name: transforms.child_frame_id
+    data_type: string
+  - name: transforms.transform
+    data_type: geometry_msgs/Transform
+  - name: transforms.transform.translation
+    data_type: geometry_msgs/Vector3
+  - name: transforms.transform.translation.x
+    data_type: float64
+  - name: transforms.transform.translation.y
+    data_type: float64
+  - name: transforms.transform.translation.z
+    data_type: float64
+  - name: transforms.transform.rotation
+    data_type: geometry_msgs/Quaternion
+  - name: transforms.transform.rotation.x
+    data_type: float64
+  - name: transforms.transform.rotation.y
+    data_type: float64
+  - name: transforms.transform.rotation.z
+    data_type: float64
+  - name: transforms.transform.rotation.w
+    data_type: float64
+  publishers:
+  - /robot_state_publisher
   subscribers:
   - /ekf_localization
 - name: /joy_teleop/cmd_vel
@@ -105,45 +144,6 @@ topics:
   - /joy_teleop/joy_node
   subscribers:
   - /joy_teleop/teleop_twist_joy
-- name: /tf_static
-  type: tf2_msgs/TFMessage
-  fields:
-  - name: transforms
-    data_type: geometry_msgs/TransformStamped[]
-  - name: transforms.header
-    data_type: std_msgs/Header
-  - name: transforms.header.seq
-    data_type: uint32
-  - name: transforms.header.stamp
-    data_type: time
-  - name: transforms.header.frame_id
-    data_type: string
-  - name: transforms.child_frame_id
-    data_type: string
-  - name: transforms.transform
-    data_type: geometry_msgs/Transform
-  - name: transforms.transform.translation
-    data_type: geometry_msgs/Vector3
-  - name: transforms.transform.translation.x
-    data_type: float64
-  - name: transforms.transform.translation.y
-    data_type: float64
-  - name: transforms.transform.translation.z
-    data_type: float64
-  - name: transforms.transform.rotation
-    data_type: geometry_msgs/Quaternion
-  - name: transforms.transform.rotation.x
-    data_type: float64
-  - name: transforms.transform.rotation.y
-    data_type: float64
-  - name: transforms.transform.rotation.z
-    data_type: float64
-  - name: transforms.transform.rotation.w
-    data_type: float64
-  publishers:
-  - /robot_state_publisher
-  subscribers:
-  - /ekf_localization
 - name: /husky_velocity_controller/cmd_vel
   type: geometry_msgs/Twist
   fields:
@@ -229,302 +229,3 @@ topics:
   publishers:
   - /ekf_localization
   subscribers: []
-- name: /imu/data
-  type: sensor_msgs/Imu
-  fields:
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: orientation
-    data_type: geometry_msgs/Quaternion
-  - name: orientation.x
-    data_type: float64
-  - name: orientation.y
-    data_type: float64
-  - name: orientation.z
-    data_type: float64
-  - name: orientation.w
-    data_type: float64
-  - name: orientation_covariance
-    data_type: float64[9]
-  - name: angular_velocity
-    data_type: geometry_msgs/Vector3
-  - name: angular_velocity.x
-    data_type: float64
-  - name: angular_velocity.y
-    data_type: float64
-  - name: angular_velocity.z
-    data_type: float64
-  - name: angular_velocity_covariance
-    data_type: float64[9]
-  - name: linear_acceleration
-    data_type: geometry_msgs/Vector3
-  - name: linear_acceleration.x
-    data_type: float64
-  - name: linear_acceleration.y
-    data_type: float64
-  - name: linear_acceleration.z
-    data_type: float64
-  - name: linear_acceleration_covariance
-    data_type: float64[9]
-  publishers:
-  - /gazebo
-  subscribers:
-  - /ekf_localization
-- name: /imu/data/bias
-  type: sensor_msgs/Imu
-  fields:
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: orientation
-    data_type: geometry_msgs/Quaternion
-  - name: orientation.x
-    data_type: float64
-  - name: orientation.y
-    data_type: float64
-  - name: orientation.z
-    data_type: float64
-  - name: orientation.w
-    data_type: float64
-  - name: orientation_covariance
-    data_type: float64[9]
-  - name: angular_velocity
-    data_type: geometry_msgs/Vector3
-  - name: angular_velocity.x
-    data_type: float64
-  - name: angular_velocity.y
-    data_type: float64
-  - name: angular_velocity.z
-    data_type: float64
-  - name: angular_velocity_covariance
-    data_type: float64[9]
-  - name: linear_acceleration
-    data_type: geometry_msgs/Vector3
-  - name: linear_acceleration.x
-    data_type: float64
-  - name: linear_acceleration.y
-    data_type: float64
-  - name: linear_acceleration.z
-    data_type: float64
-  - name: linear_acceleration_covariance
-    data_type: float64[9]
-  publishers:
-  - /gazebo
-  subscribers: []
-- name: /navsat/fix
-  type: sensor_msgs/NavSatFix
-  fields:
-  - name: COVARIANCE_TYPE_UNKNOWN
-    data_type: uint8
-    default: '0'
-  - name: COVARIANCE_TYPE_APPROXIMATED
-    data_type: uint8
-    default: '1'
-  - name: COVARIANCE_TYPE_DIAGONAL_KNOWN
-    data_type: uint8
-    default: '2'
-  - name: COVARIANCE_TYPE_KNOWN
-    data_type: uint8
-    default: '3'
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: status
-    data_type: sensor_msgs/NavSatStatus
-  - name: status.STATUS_NO_FIX
-    data_type: int8
-    default: '-1'
-  - name: status.STATUS_FIX
-    data_type: int8
-    default: '0'
-  - name: status.STATUS_SBAS_FIX
-    data_type: int8
-    default: '1'
-  - name: status.STATUS_GBAS_FIX
-    data_type: int8
-    default: '2'
-  - name: status.SERVICE_GPS
-    data_type: uint16
-    default: '1'
-  - name: status.SERVICE_GLONASS
-    data_type: uint16
-    default: '2'
-  - name: status.SERVICE_COMPASS
-    data_type: uint16
-    default: '4'
-  - name: status.SERVICE_GALILEO
-    data_type: uint16
-    default: '8'
-  - name: status.status
-    data_type: int8
-  - name: status.service
-    data_type: uint16
-  - name: latitude
-    data_type: float64
-  - name: longitude
-    data_type: float64
-  - name: altitude
-    data_type: float64
-  - name: position_covariance
-    data_type: float64[9]
-  - name: position_covariance_type
-    data_type: uint8
-  publishers:
-  - /gazebo
-  subscribers: []
-- name: /navsat/vel
-  type: geometry_msgs/Vector3Stamped
-  fields:
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: vector
-    data_type: geometry_msgs/Vector3
-  - name: vector.x
-    data_type: float64
-  - name: vector.y
-    data_type: float64
-  - name: vector.z
-    data_type: float64
-  publishers:
-  - /gazebo
-  subscribers: []
-- name: /joint_states
-  type: sensor_msgs/JointState
-  fields:
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: name
-    data_type: string[]
-  - name: position
-    data_type: float64[]
-  - name: velocity
-    data_type: float64[]
-  - name: effort
-    data_type: float64[]
-  publishers:
-  - /gazebo
-  subscribers:
-  - /robot_state_publisher
-- name: /husky_velocity_controller/cmd_vel_out
-  type: geometry_msgs/TwistStamped
-  fields:
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: twist
-    data_type: geometry_msgs/Twist
-  - name: twist.linear
-    data_type: geometry_msgs/Vector3
-  - name: twist.linear.x
-    data_type: float64
-  - name: twist.linear.y
-    data_type: float64
-  - name: twist.linear.z
-    data_type: float64
-  - name: twist.angular
-    data_type: geometry_msgs/Vector3
-  - name: twist.angular.x
-    data_type: float64
-  - name: twist.angular.y
-    data_type: float64
-  - name: twist.angular.z
-    data_type: float64
-  publishers:
-  - /gazebo
-  subscribers: []
-- name: /husky_velocity_controller/odom
-  type: nav_msgs/Odometry
-  fields:
-  - name: header
-    data_type: std_msgs/Header
-  - name: header.seq
-    data_type: uint32
-  - name: header.stamp
-    data_type: time
-  - name: header.frame_id
-    data_type: string
-  - name: child_frame_id
-    data_type: string
-  - name: pose
-    data_type: geometry_msgs/PoseWithCovariance
-  - name: pose.pose
-    data_type: geometry_msgs/Pose
-  - name: pose.pose.position
-    data_type: geometry_msgs/Point
-  - name: pose.pose.x
-    data_type: float64
-  - name: pose.pose.y
-    data_type: float64
-  - name: pose.pose.z
-    data_type: float64
-  - name: pose.pose.orientation
-    data_type: geometry_msgs/Quaternion
-  - name: pose.pose.orientation.x
-    data_type: float64
-  - name: pose.pose.orientation.y
-    data_type: float64
-  - name: pose.pose.orientation.z
-    data_type: float64
-  - name: pose.pose.orientation.w
-    data_type: float64
-  - name: pose.covariance
-    data_type: float64[36]
-  - name: twist
-    data_type: geometry_msgs/TwistWithCovariance
-  - name: twist.twist
-    data_type: geometry_msgs/Twist
-  - name: twist.twist.linear
-    data_type: geometry_msgs/Vector3
-  - name: twist.twist.linear.x
-    data_type: float64
-  - name: twist.twist.linear.y
-    data_type: float64
-  - name: twist.twist.linear.z
-    data_type: float64
-  - name: twist.twist.angular
-    data_type: geometry_msgs/Vector3
-  - name: twist.twist.angular.x
-    data_type: float64
-  - name: twist.twist.angular.y
-    data_type: float64
-  - name: twist.twist.angular.z
-    data_type: float64
-  - name: twist.covariance
-    data_type: float64[36]
-  publishers:
-  - /gazebo
-  subscribers:
-  - /ekf_localization
